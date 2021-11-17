@@ -1,0 +1,98 @@
+﻿<div class="col-12">
+    <center>
+        <h3 id="mTotalBayar"></h3>
+    </center>
+</div>
+<hr />
+<div class="col-12" id="mPembayaran">
+    <div class="row">
+        <div class="col-4">
+            <label>Metode Pembayaran : </label>
+        </div>
+        <div class="col-8">
+            <input type="button" class="btn btn-outline-dark" value="Cash" onclick="BayarCash()" />&nbsp;
+            <input type="button" class="btn btn-outline-dark" value="E-Wallet" onclick="BayarEWallet()" />&nbsp;
+            <input type="button" class="btn btn-outline-dark" value="Transfer" onclick="BayarTransfer()" />
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="col-12" id="bCash">
+    <div class="row">
+        <div class="col-4">
+            <label>Cash</label>
+        </div>
+        <div class="col-8">
+            <input type="text" class="form-control" id="jumlahCash" oninput="ValueKembali()" /><br />
+            <div class="col-12">
+                <div class="row">
+                    <input type="button" class="btn btn-outline-dark" value="Rp. 25,000" />&nbsp;
+                    <input type="button" class="btn btn-outline-dark" value="Rp. 50,000" />&nbsp;
+                    <input type="button" class="btn btn-outline-dark" value="Rp. 100,000" />
+                </div>
+            </div>
+        </div>
+    </div><br />
+    <center>
+        <h4 id="hKembali"></h4>
+    </center>
+</div>
+
+<div class="col-12" id="bEWallet">
+    <div class="row">
+        <div class="col-4">
+            <label>E-Wallet</label>
+        </div>
+        <div class="col-8">
+            <input type="button" class="btn btn-outline-dark" value="Ovo" />&nbsp;
+            <input type="button" class="btn btn-outline-dark" value="Go-Pay" />&nbsp;
+            <input type="button" class="btn btn-outline-dark" value="Dana" />
+        </div>
+    </div>
+</div>
+<div class="col-12" id="bTrasnfer">
+    <div class="row">
+        <div class="col-4">
+            <label>Transfer</label>
+        </div>
+        <div class="col-8">
+            <input type="button" class="btn btn-outline-dark col-4" value="BCA" />&nbsp;
+            <input type="button" class="btn btn-outline-dark col-4" value="BNI" />&nbsp;
+            <input type="button" class="btn btn-outline-dark col-4" value="Mandiri" />&nbsp;
+            <input type="button" class="btn btn-outline-dark col-4" value="CIMB Niaga" />&nbsp;
+            <input type="button" class="btn btn-outline-dark col-4" value="BRI" />&nbsp;
+            <input type="button" class="btn btn-outline-dark col-4" value="Other" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#bCash").hide();
+        $("#bEWallet").hide();
+        $("#bTrasnfer").hide();
+    });
+
+    function BayarCash() {
+        $("#bEWallet").hide();
+        $("#bTrasnfer").hide();
+
+        $("#bCash").show();
+    }
+
+    function BayarEWallet() {
+        $("#bCash").hide();
+        $("#bTrasnfer").hide();
+
+        $("#bEWallet").show();
+    }
+
+    function BayarTransfer() {
+        $("#bCash").hide();
+        $("#bEWallet").hide();
+
+        $("#bTrasnfer").show();
+    }
+</script>

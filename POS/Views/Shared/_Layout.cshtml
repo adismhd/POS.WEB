@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Warung Mamang</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    @*<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">*@
+
+    <partial name="_Style" />
+    <partial name="_Script" />
+
+    <style>
+        /* Zoom Page */
+        @@-moz-document url-prefix() {
+            html {
+                font-size: 70%;
+            }
+        }
+
+        .modal-backdrop {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        html {
+            font-size: 70%;
+        }
+
+        body {
+        }
+
+        .top-nav.dropdown-menu.show {
+            transform: translate3d(0px, 41px, 0px) !important;
+        }
+
+        thead {
+            background: #f7f7f7;
+        }
+
+        input[required] {
+            background: #fff8c6;
+        }
+
+        select[required] {
+            background: #fff8c6;
+        }
+
+        textarea[required] {
+            background: #fff8c6;
+        }
+
+        .bg-footer {
+            background: #ecf0f5;
+        }
+    </style>
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper" style="min-height:150vh">
+        <partial name="_TopNavigation" />
+        <partial name="_MainNavigation" />
+
+        <div class="content-wrapper bg-white">
+            @RenderBody()
+        </div>
+
+        <aside class="control-sidebar control-sidebar-dark">
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
+
+<script>
+    function Logout() {
+        window.location.replace('@Url.Action("Login", "Login")');
+    }
+</script>

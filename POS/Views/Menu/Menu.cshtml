@@ -1,0 +1,83 @@
+﻿<div class="container-fluid">
+    <br />
+    <div class="card card-secondary">
+        <div class="card-body">
+            <h1>Daftar Menu Makanan</h1>
+        </div>
+    </div>
+    <div class="card">
+        <table class="table table-striped " id="tableMenu">
+            <thead class="thead-dark">
+                <tr style='text-align: center; vertical-align: middle; '>
+                    <th scope="col">No</th>
+                    <th scope="col">Gambar</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Tipe</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">
+                        <a href='javascript:void(0)' class='btn btn-primary' id='bTambahData' onclick="TambahMenu()">Tambah Menu</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody-tableMenu">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-TambahMenu">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <partial name="_TambahMenu" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        LoadData();
+    });
+
+    function LoadData() {
+        var harga = 15000;
+        param = {};
+
+        $.ajax({
+            type: 'GET',
+            url: '../DataDummy/Data.json',
+            data: param,
+            success: function (Data, textStatus, jqXHR) {
+                //$("#tbody-tableMenu").empty();
+                var trHTML = '';
+                var no = 0;
+                $.each(Data.item, function (i, rowData) {
+                    no += 1;
+                    trHTML += "<tr style='text-align: center;'>" +
+                        "<td style='display:none'>" + rowData.id + "</td>" +
+                        "<td style='vertical-align: middle; '>" + no + "</td>" +
+                        "<td style='width: 170px; height:170px; vertical-align: middle; '> <img class='img-responsive' src='" + rowData.gambar + "' style='width:200px;'> </td>" +
+                        "<td style='vertical-align: middle; '>" + rowData.nama + "</td>" +
+                        "<td style='vertical-align: middle; '>" + rowData.tipe + "</td>" +
+                        "<td style='vertical-align: middle; '>" + rowData.harga +"</td>" +
+                        "<td style='vertical-align: middle; '> <div class='btn-group'>" +
+                        "<a href='javascript:void(0)' class='btn btn-warning' id='bEditData'>Edit</a>" +
+                        "<a href='javascript:void(0)' class='btn btn-danger' id='bHapusData'>Hapus</a>" +
+                        "</div></td>" +
+                        "</tr>";
+                });
+                $('#tableMenu').append(trHTML);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Get Data Error.")
+            }
+        });
+    }
+
+    function TambahMenu() {
+        $("#modal-TambahMenu").modal("show");
+    }
+
+    function CloseModal() {
+        $("#modal-TambahMenu").modal("hide");
+    }
+</script>

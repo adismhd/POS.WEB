@@ -1,0 +1,196 @@
+﻿<br />
+<div class="container-fluid">
+    <div class="col-12 row">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="col-12">
+                        <div class="row">
+                            <input type="text" class="form-control col-10" placeholder="cari" />
+                            <div class="dropdown col-2">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Filter
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Menu</a>
+                                    <a class="dropdown-item" href="#">Harga</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row" id="dataItem">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="New Costumer" />&nbsp;
+                        <input type="button" class="btn btn-warning" value="Batalkan Pesanan" onclick="BayarNanti()" />
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group" id="hargaItem">
+                        <table class='table' id="tPesanan">
+                            <tbody id="tbody-tPesanan"></tbody>
+                            <tfoot style="background-color:lightgray; border:none">
+                                <tr><td>SubTotal</td><td colspan="2" id="subTotal"></td></tr>
+                                <tr><td>Tax 15%</td><td colspan="2" id="tax"></td></tr>
+                            </tfoot>
+                        </table>
+                        <hr />
+                        <center><h3 id="total">Total : Rp. 0 </h3></center>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <center>
+                        <input type="button" class="btn btn-danger" value="Bayar Sekarang" onclick="BayarSekarang()" />&nbsp;
+                        <input type="button" class="btn btn-secondary" value="Bayar Nanti" onclick="BayarNanti()" />
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-Pembayaran">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <section class="modal-body">
+                <div class="container-fluid">
+                    <br />
+                    <partial name="_MenuPembayaran" />
+                </div>
+            </section>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <center>
+                        <button type="button" class="btn btn-danger" id="bBayar" onclick="">Bayar</button>&nbsp;
+                        <button type="button" class="btn btn-secondary" onclick="CloseModalPembayaran()">Cancel</button>&nbsp;
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        LoadData();
+        $("#bBayar").prop('disabled', true);
+    });
+
+    var totalHarga = 0;
+    var taxTotal = 0;
+    var totalBayar = 0;
+
+    function LoadData() {
+        param = {};
+
+        $.ajax({
+            type: 'GET',
+            url: '../DataDummy/Data.json',
+            data: param,
+            success: function (Data, textStatus, jqXHR) {
+                //$("#tbody-tableMenu").empty();
+                var cHtml = '';
+                var no = 0;
+                $.each(Data.item, function (i, rowData) {
+                    no += 1;
+                    var link = '"' + rowData.nama + '"';
+                    cHtml += "<div class='col-3'>" +
+                        "<div class='card btn p-0' onclick='Keranjang(" + rowData.harga + "," + link + ")'>" +
+                        "<div class='card-body p-1'>" +
+                        "<div class='view overlay zoom'>" +
+                        "<img class='w-100' src='" + rowData.gambar + "' alt='gambar alam'>" +
+                        "</div></div>" +
+                        "<div class='card-footer'>" +
+                        "<div class='row'>" +
+                        "<center><label style='color:dimgray'>" + rowData.nama + "</label></center>" +
+                        "</div></div></div></div>";
+                });
+                document.getElementById('dataItem').innerHTML += cHtml;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Get Data Error.")
+            }
+        });
+    }
+
+    function Keranjang(harga, nama) {
+        totalHarga += harga;
+        taxTotal = totalHarga * 0.15;
+        totalBayar = totalHarga + taxTotal;
+
+        var cHtml = "<tr><td>" + nama + "</td><td>" + harga +
+            "</td><td><a href='javascript:void(0)' class='btn btn-danger btn-sm' id='bHapusPesanan'>x</a></td></tr>";
+        var cTotal = "Total : Rp. " + totalBayar;
+
+        $('#tPesanan').append(cHtml);
+
+        document.getElementById('subTotal').innerHTML = totalHarga;
+        document.getElementById('tax').innerHTML = taxTotal;
+        document.getElementById('total').innerHTML = cTotal;
+    }
+
+    function BayarSekarang() {
+        $("#modal-Pembayaran").modal("show");
+
+        $("#mTotalBayar").text("Rp. " + totalBayar);
+    }
+
+    function BayarNanti() {
+        $("#tbody-tPesanan").empty();
+
+        totalHarga = 0;
+        taxTotal = 0;
+        totalBayar = 0;
+        var cTotal = "Total : Rp. " + totalBayar;
+
+        document.getElementById('subTotal').innerHTML = totalHarga;
+        document.getElementById('tax').innerHTML = taxTotal;
+        document.getElementById('total').innerHTML = cTotal;
+
+        alert("Pesanan Sudah Dibuat!! Status : Belum Dibayar");
+    }
+
+    $("#tPesanan").on('click', '#bHapusPesanan', function () {
+        var currentRow = $(this).closest("tr");
+        var harga = currentRow.find("td:eq(1)").text();
+
+        //perhitungan
+        totalHarga -= harga;
+        taxTotal = totalHarga * 0.15;
+        totalBayar = totalHarga + taxTotal;
+        var cTotal = "Total : Rp. " + totalBayar;
+
+        //set data
+        document.getElementById('subTotal').innerHTML = totalHarga;
+        document.getElementById('tax').innerHTML = taxTotal;
+        document.getElementById('total').innerHTML = cTotal;
+
+        $(this).closest("tr").remove();
+    });
+
+    function ValueKembali() {
+        var cash = $("#jumlahCash").val();
+        var hasilKembali = cash - totalBayar;
+
+        $("#hKembali").text("Kembalian : Rp. " + hasilKembali);
+
+        if (hasilKembali < 0) {
+            $("#bBayar").prop('disabled', true);
+        } else {
+            $("#bBayar").prop('disabled', false);
+        }
+    }
+
+    function CloseModalPembayaran() {
+        $("#modal-Pembayaran").modal("hide");
+    }
+</script>

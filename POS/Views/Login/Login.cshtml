@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+}
+
+<style>
+    #login {
+        min-height: 142vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #f4f6f9;
+    }
+
+    #login-bg {
+        background-image: url("../img/LogoPOS.jpg");
+        background-position: 80% center;
+        background-size: cover;
+        height: 100%;
+        min-height: 200px;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+
+    #login-container {
+        width: 60vw;
+        box-shadow: 0px 10px 34px -15px rgb(0 0 0 / 24%);
+        border-radius: 10px;
+        background: white;
+    }
+
+    h4 {
+        background: #f2f2f2;
+    }
+</style>
+
+<section id="login" class="container-fluid">
+    <div id="login-container" class="row">
+        <div class="col-lg-6 p-0">
+            <div id="login-bg">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row align-items-center h-100">
+                <div class="w-100 p-5">
+                    <center><h2>Login</h2></center><hr />
+                    <div class="form-group">
+                        @*<label>User ID</label>*@
+                        <input type="text" class="form-control form-control-sm" id="userName" name="userName" placeholder="UserName" />
+                    </div>
+                    <div class="form-group">
+                        @*<label>Password</label>*@
+                        <div class="input-group mb-3">
+                            <input type="password" id="password" name="password" class="form-control form-control-sm" placeholder="Password">
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white"><i id="password-icon" class="fa fa-eye"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-default w-100" style="background-color: #89369e" type="button" onclick="Login()">
+                        <b style="color:white">Login</b>
+                    </button>
+                    <center><a>or, sign up</a></center>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function Login() {
+        window.location.replace('@Url.Action("Index", "Home")');
+    }
+</script>

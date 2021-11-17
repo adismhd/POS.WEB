@@ -1,0 +1,44 @@
+﻿<br />
+<div class="container-fluid">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Transaksi Sedang Berlangsung</h4>
+            </div>
+            <div class="card-body">
+                <div class="row" id="dataItem">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="input-group">
+                                <label id="namaCostumer"></label>
+                                <label id="nomorMeja"></label>
+                                <label id="tanggal"></label>
+                                <label id="Pegawai"></label>
+                                <label id="Status"></label>
+                                <input type="button" class="btn btn-warning" value="Batalkan Pesanan" onclick="BayarNanti()" />
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group" id="hargaItem">
+                                <table class='table' id="tPesanan">
+                                    <tbody id="tbody-tPesanan"></tbody>
+                                    <tfoot style="background-color:lightgray; border:none">
+                                        <tr><td>SubTotal</td><td colspan="2" id="subTotal"></td></tr>
+                                        <tr><td>Tax 15%</td><td colspan="2" id="tax"></td></tr>
+                                    </tfoot>
+                                </table>
+                                <hr />
+                                <center><h3 id="total">Total : Rp. 0 </h3></center>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <center>
+                                <input type="button" class="btn btn-danger" value="Bayar Sekarang" onclick="BayarSekarang()" />&nbsp;
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
