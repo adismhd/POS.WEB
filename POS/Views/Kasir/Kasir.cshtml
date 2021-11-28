@@ -37,10 +37,11 @@
                 <div class="card-body">
                     <div class="form-group" id="hargaItem">
                         <table class='table' id="tPesanan">
+                            <thead><tr><td>Pesanan</td><td>Harga</td><td>Jumlah</td><td>Total</td></tr></thead>
                             <tbody id="tbody-tPesanan"></tbody>
                             <tfoot style="background-color:lightgray; border:none">
-                                <tr><td>SubTotal</td><td colspan="2" id="subTotal"></td></tr>
-                                <tr><td>Tax 15%</td><td colspan="2" id="tax"></td></tr>
+                                <tr><td colspan="3" >SubTotal</td><td id="subTotal"></td></tr>
+                                <tr><td colspan="3" >Tax 15%</td><td id="tax"></td></tr>
                             </tfoot>
                         </table>
                         <hr />
@@ -88,6 +89,7 @@
     var totalHarga = 0;
     var taxTotal = 0;
     var totalBayar = 0;
+    var tempPesanan = [];
 
     function LoadData() {
         param = {};
@@ -104,7 +106,7 @@
                     no += 1;
                     var link = '"' + rowData.nama + '"';
                     cHtml += "<div class='col-3'>" +
-                        "<div class='card btn p-0' onclick='Keranjang(" + rowData.harga + "," + link + ")'>" +
+                        "<div class='card btn p-0' onclick='Keranjang(" + rowData.id + "," + rowData.harga + "," + link + ")'>" +
                         "<div class='card-body p-1'>" +
                         "<div class='view overlay zoom'>" +
                         "<img class='w-100' src='" + rowData.gambar + "' alt='gambar alam'>" +
@@ -122,21 +124,93 @@
         });
     }
 
-    function Keranjang(harga, nama) {
-        totalHarga += harga;
-        taxTotal = totalHarga * 0.15;
-        totalBayar = totalHarga + taxTotal;
+    function Keranjang(id, harga, nama) {
+        if (tempPesanan.length == 0) {
+            tempPesanan.push({ pId: id, pHarga: harga, pNama: nama, pJumlah: 1, pTotalHarga: harga });
+            TampilPesanan();
+        } else {
+            var tempData = 0;
+            for (var i in tempPesanan) {
+                if (tempPesanan[i].pId == id) {
+                    tempData = 1;
+                }
+            }
+            if (tempData != 0) {
+                for (var i in tempPesanan) {
+                    if (tempPesanan[i].pId == id) {
+                        tempPesanan[i].pTotalHarga = tempPesanan[i].pTotalHarga + harga;
+                        tempPesanan[i].pJumlah = tempPesanan[i].pJumlah + 1;
+                    }
+                }
+                TampilPesanan();
+            } else {
+                tempPesanan.push({ pId: id, pHarga: harga, pNama: nama, pJumlah: 1, pTotalHarga: harga });
+                TampilPesanan();
+            }
+        }
+        console.log(tempPesanan);
+    }
 
-        var cHtml = "<tr><td>" + nama + "</td><td>" + harga +
-            "</td><td><a href='javascript:void(0)' class='btn btn-danger btn-sm' id='bHapusPesanan'>x</a></td></tr>";
-        var cTotal = "Total : Rp. " + totalBayar;
+    function TampilPesanan() {
+        var cHtml;
+        totalHarga = 0;
 
+        for (var i in tempPesanan) {
+            totalHarga += tempPesanan[i].pTotalHarga;
+            taxTotal = totalHarga * 0.15;
+            totalBayar = totalHarga + taxTotal;
+
+            cHtml += "<tr><td style='display: none;'>" + tempPesanan[i].pId + "</td><td style='display: none;'>" + tempPesanan[i].pJumlah + "</td><td>" + tempPesanan[i].pNama + "</td><td>" + tempPesanan[i].pHarga + 
+                "</td><td><a href='javascript:void(0)' class='btn btn-warning btn-sm' id='bKurang'><</a><a href='javascript:void(0)' class='btn btn-sm' disabled>" + tempPesanan[i].pJumlah
+                + "</a><a href='javascript:void(0)' class='btn btn-warning btn-sm' id='bTambah'>></a></td>" + "<td>" + tempPesanan[i].pTotalHarga + "</td></tr>";
+            var cTotal = "Total : Rp. " + totalBayar;
+        }
+        $("#tbody-tPesanan").empty();
         $('#tPesanan').append(cHtml);
 
         document.getElementById('subTotal').innerHTML = totalHarga;
         document.getElementById('tax').innerHTML = taxTotal;
         document.getElementById('total').innerHTML = cTotal;
     }
+
+    //#region Pengaturan Jumlah Pesanan
+    $("#tPesanan").on('click', '#bKurang', function () {
+        var currentRow = $(this).closest("tr");
+        var id = currentRow.find("td:eq(0)").text();
+        var jumlah = currentRow.find("td:eq(1)").text();
+        if (jumlah == 1) {
+            for (var i in tempPesanan) {
+                if (tempPesanan[i].pId == id) {
+                    delete tempPesanan[i];
+                    TampilPesanan();
+                }
+            }
+        } else {
+            for (var i in tempPesanan) {
+                if (tempPesanan[i].pId == id) {
+                    tempPesanan[i].pTotalHarga = tempPesanan[i].pTotalHarga - tempPesanan[i].pHarga;
+                    tempPesanan[i].pJumlah = tempPesanan[i].pJumlah - 1;
+
+                    TampilPesanan();
+                }
+            }
+        }
+    });
+
+    $("#tPesanan").on('click', '#bTambah', function () {
+        var currentRow = $(this).closest("tr");
+        var id = currentRow.find("td:eq(0)").text();
+
+        for (var i in tempPesanan) {
+            if (tempPesanan[i].pId == id) {
+                tempPesanan[i].pTotalHarga = tempPesanan[i].pTotalHarga + tempPesanan[i].pHarga;
+                tempPesanan[i].pJumlah = tempPesanan[i].pJumlah + 1;
+
+                TampilPesanan();
+            }
+        }
+    });
+    //#endregion
 
     function BayarSekarang() {
         $("#modal-Pembayaran").modal("show");
@@ -151,6 +225,7 @@
         taxTotal = 0;
         totalBayar = 0;
         var cTotal = "Total : Rp. " + totalBayar;
+        tempPesanan = [];
 
         document.getElementById('subTotal').innerHTML = totalHarga;
         document.getElementById('tax').innerHTML = taxTotal;
@@ -158,24 +233,6 @@
 
         alert("Pesanan Sudah Dibuat!! Status : Belum Dibayar");
     }
-
-    $("#tPesanan").on('click', '#bHapusPesanan', function () {
-        var currentRow = $(this).closest("tr");
-        var harga = currentRow.find("td:eq(1)").text();
-
-        //perhitungan
-        totalHarga -= harga;
-        taxTotal = totalHarga * 0.15;
-        totalBayar = totalHarga + taxTotal;
-        var cTotal = "Total : Rp. " + totalBayar;
-
-        //set data
-        document.getElementById('subTotal').innerHTML = totalHarga;
-        document.getElementById('tax').innerHTML = taxTotal;
-        document.getElementById('total').innerHTML = cTotal;
-
-        $(this).closest("tr").remove();
-    });
 
     function ValueKembali() {
         var cash = $("#jumlahCash").val();
