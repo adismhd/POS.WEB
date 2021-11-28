@@ -4,6 +4,50 @@
 			"Id": "1",
 			"Pegawai": "Ayu",
 			"NamaCostumer": "Ega",
+			"NomorMeja": "4",
+			"Tanggal": "10-11-2020",
+			"Status": "0",
+			"Item": [
+				{
+					"idPesanan": "1",
+					"nama": "Capuchino",
+					"harga": 12000,
+					"jumlah": "1",
+					"total": 12000
+				},
+				{
+					"idPesanan": "2",
+					"nama": "V60",
+					"harga": 13000,
+					"jumlah": "2",
+					"total": 26000
+				},
+				{
+					"idPesanan": "3",
+					"nama": "Vietnam Drip",
+					"harga": 10000,
+					"jumlah": "4",
+					"total": 40000
+				},
+				{
+					"idPesanan": "4",
+					"nama": "Hot Chocolate",
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
+				}
+			],
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "Cash",
+			"Pembayaran": 0,
+			"Kembali": 0
+		},
+		{
+			"Id": "1",
+			"Pegawai": "Ayu",
+			"NamaCostumer": "Reni",
 			"NomorMeja": "10",
 			"Tanggal": "10-11-2020",
 			"Status": "0",
@@ -11,108 +55,319 @@
 				{
 					"idPesanan": "1",
 					"nama": "Capuchino",
-					"harga": 12000
-				},
-				{
-					"idPesanan": "2",
-					"nama": "V60",
-					"harga": 13000
+					"harga": 12000,
+					"jumlah": "1",
+					"total": 12000
 				},
 				{
 					"idPesanan": "3",
 					"nama": "Vietnam Drip",
-					"harga": 10000
+					"harga": 10000,
+					"jumlah": "4",
+					"total": 40000
 				},
 				{
 					"idPesanan": "4",
 					"nama": "Hot Chocolate",
-					"harga": 9000
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
 				}
 			],
 			"SubTotal": 44000,
 			"Tax": 6600,
 			"TotalHarga": 50600,
+			"MetodePembayaran": "Cash",
 			"Pembayaran": 0,
 			"Kembali": 0
 		},
 		{
-			"Id": "2",
+			"Id": "1",
 			"Pegawai": "Ayu",
-			"NamaCostumer": "Echa",
-			"NomorMeja": "7",
-			"Tanggal": "10-11-2020",
-			"Status": "1",
-			"Item": [
-				{
-					"idPesanan": "1",
-					"nama": "Mochachino",
-					"harga": 12500
-				},
-				{
-					"idPesanan": "2",
-					"nama": "Susu Regal",
-					"harga": 12000
-				}
-			],
-			"SubTotal": 24500,
-			"Tax": 3675,
-			"TotalHarga": 28175,
-			"Pembayaran": 0,
-			"Kembali": 0
-		},
-		{
-			"Id": "3",
-			"Pegawai": "Ayu",
-			"NamaCostumer": "Nisa",
-			"NomorMeja": "2",
+			"NamaCostumer": "Lintang",
+			"NomorMeja": "1",
 			"Tanggal": "10-11-2020",
 			"Status": "0",
 			"Item": [
 				{
-					"idPesanan": "1",
-					"nama": "Mochachino",
-					"harga": 12500
+					"idPesanan": "2",
+					"nama": "V60",
+					"harga": 13000,
+					"jumlah": "2",
+					"total": 26000
+				},
+				{
+					"idPesanan": "3",
+					"nama": "Vietnam Drip",
+					"harga": 10000,
+					"jumlah": "4",
+					"total": 40000
+				},
+				{
+					"idPesanan": "4",
+					"nama": "Hot Chocolate",
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
 				}
 			],
-			"SubTotal": 24500,
-			"Tax": 3675,
-			"TotalHarga": 28175,
-			"Pembayaran": 0,
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "Transfer",
+			"Pembayaran": 50600,
 			"Kembali": 0
 		},
 		{
-			"Id": "4",
+			"Id": "1",
 			"Pegawai": "Ayu",
-			"NamaCostumer": "Echa",
+			"NamaCostumer": "Regi",
+			"NomorMeja": "3",
+			"Tanggal": "10-11-2020",
+			"Status": "1",
+			"Item": [
+				{
+					"idPesanan": "1",
+					"nama": "Capuchino",
+					"harga": 12000,
+					"jumlah": "1",
+					"total": 12000
+				},
+				{
+					"idPesanan": "2",
+					"nama": "V60",
+					"harga": 13000,
+					"jumlah": "2",
+					"total": 26000
+				},
+				{
+					"idPesanan": "3",
+					"nama": "Vietnam Drip",
+					"harga": 10000,
+					"jumlah": "4",
+					"total": 40000
+				},
+				{
+					"idPesanan": "4",
+					"nama": "Hot Chocolate",
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
+				}
+			],
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "Cash",
+			"Pembayaran": 100000,
+			"Kembali": 49000
+		},
+		{
+			"Id": "1",
+			"Pegawai": "Ayu",
+			"NamaCostumer": "Siska",
+			"NomorMeja": "2",
+			"Tanggal": "10-11-2020",
+			"Status": "1",
+			"Item": [
+				{
+					"idPesanan": "1",
+					"nama": "Capuchino",
+					"harga": 12000,
+					"jumlah": "1",
+					"total": 12000
+				},
+				{
+					"idPesanan": "4",
+					"nama": "Hot Chocolate",
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
+				}
+			],
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "Transfer",
+			"Pembayaran": 50600,
+			"Kembali": 0
+		},
+		{
+			"Id": "1",
+			"Pegawai": "Ayu",
+			"NamaCostumer": "Raisa",
 			"NomorMeja": "7",
 			"Tanggal": "10-11-2020",
 			"Status": "1",
 			"Item": [
 				{
 					"idPesanan": "1",
-					"nama": "Mochachino",
-					"harga": 12500
+					"nama": "Capuchino",
+					"harga": 12000,
+					"jumlah": "1",
+					"total": 12000
 				},
 				{
 					"idPesanan": "2",
-					"nama": "Susu Regal",
-					"harga": 12000
+					"nama": "V60",
+					"harga": 13000,
+					"jumlah": "2",
+					"total": 26000
 				},
 				{
-					"idPesanan": "2", 
-					"nama": "Susu Regal",
-					"harga": 12000
-				},
-				{
-					"idPesanan": "2",
-					"nama": "Susu Regal",
-					"harga": 12000
+					"idPesanan": "3",
+					"nama": "Vietnam Drip",
+					"harga": 10000,
+					"jumlah": "4",
+					"total": 40000
 				}
 			],
-			"SubTotal": 24500,
-			"Tax": 3675,
-			"TotalHarga": 28175,
-			"Pembayaran": 0,
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "Cash",
+			"Pembayaran": 50600,
+			"Kembali": 0
+		},
+		{
+			"Id": "1",
+			"Pegawai": "Meka",
+			"NamaCostumer": "Yana",
+			"NomorMeja": "10",
+			"Tanggal": "10-11-2020",
+			"Status": "1",
+			"Item": [
+				{
+					"idPesanan": "4",
+					"nama": "Hot Chocolate",
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
+				}
+			],
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "Cash",
+			"Pembayaran": 50600,
+			"Kembali": 0
+		},
+		{
+			"Id": "1",
+			"Pegawai": "Ayu",
+			"NamaCostumer": "Lisa",
+			"NomorMeja": "6",
+			"Tanggal": "10-11-2020",
+			"Status": "1",
+			"Item": [
+				{
+					"idPesanan": "3",
+					"nama": "Vietnam Drip",
+					"harga": 10000,
+					"jumlah": "4",
+					"total": 40000
+				},
+				{
+					"idPesanan": "4",
+					"nama": "Hot Chocolate",
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
+				}
+			],
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "E-Walet",
+			"Pembayaran": 50600,
+			"Kembali": 0
+		},
+		{
+			"Id": "1",
+			"Pegawai": "Ayu",
+			"NamaCostumer": "Jandi",
+			"NomorMeja": "10",
+			"Tanggal": "10-11-2020",
+			"Status": "1",
+			"Item": [
+				{
+					"idPesanan": "1",
+					"nama": "Capuchino",
+					"harga": 12000,
+					"jumlah": "1",
+					"total": 12000
+				},
+				{
+					"idPesanan": "2",
+					"nama": "V60",
+					"harga": 13000,
+					"jumlah": "2",
+					"total": 26000
+				},
+				{
+					"idPesanan": "3",
+					"nama": "Vietnam Drip",
+					"harga": 10000,
+					"jumlah": "4",
+					"total": 40000
+				},
+				{
+					"idPesanan": "4",
+					"nama": "Hot Chocolate",
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
+				}
+			],
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "Cash",
+			"Pembayaran": 50600,
+			"Kembali": 1000
+		},
+		{
+			"Id": "1",
+			"Pegawai": "Ayu",
+			"NamaCostumer": "Rea",
+			"NomorMeja": "10",
+			"Tanggal": "10-11-2020",
+			"Status": "1",
+			"Item": [
+				{
+					"idPesanan": "1",
+					"nama": "Capuchino",
+					"harga": 12000,
+					"jumlah": "1",
+					"total": 12000
+				},
+				{
+					"idPesanan": "2",
+					"nama": "V60",
+					"harga": 13000,
+					"jumlah": "2",
+					"total": 26000
+				},
+				{
+					"idPesanan": "3",
+					"nama": "Vietnam Drip",
+					"harga": 10000,
+					"jumlah": "4",
+					"total": 40000
+				},
+				{
+					"idPesanan": "4",
+					"nama": "Hot Chocolate",
+					"harga": 9000,
+					"jumlah": "3",
+					"total": 27000
+				}
+			],
+			"SubTotal": 44000,
+			"Tax": 6600,
+			"TotalHarga": 50600,
+			"MetodePembayaran": "Transfer",
+			"Pembayaran": 50600,
 			"Kembali": 0
 		}
 	]

@@ -55,7 +55,8 @@
 
                         $.each(rowData.Item, function (i, rowData2) {
                             cHtml += "<tbody id='tbody-tPesanan'>" +
-                                "<tr><td style='display: none;'>" + rowData2.idPesanan + "</td><td>" + rowData2.nama + "</td><td>" + rowData2.harga + "</td><td>1</td><td>" + rowData2.harga + "</td></tr>"+
+                                "<tr><td style='display: none;'>" + rowData2.idPesanan + "</td><td>" + rowData2.nama + "</td><td>" + rowData2.harga +
+                                "</td><td>" + rowData2.jumlah + "</td><td>" + rowData2.total + "</td></tr>" +
                                 "</tbody>";
                         });
                         cHtml += "<tfoot style='background-color:lightgray; border:none'>" +
@@ -81,6 +82,7 @@
                             "<tr><td colspan='3'>SubTotal</td><td id='subTotal'>" + rowData.SubTotal + "</td></tr>" +
                             "<tr><td colspan='3'>Tax 15%</td><td id='tax'>" + rowData.Tax + "</td></tr>" +
                             "<tr><td colspan='3'>Total Harga</td><td id='TotalHarga'>" + rowData.TotalHarga + "</td></tr>" +
+                            "<tr><td colspan='3'>Pembayaran</td><td id='TotalHarga'>" + rowData.MetodePembayaran + "</td></tr>" +
                             "<tr><td colspan='3'>Pembayaran</td><td id='TotalHarga'>" + rowData.Pembayaran + "</td></tr>" +
                             "<tr><td colspan='3'>Kembalian</td><td id='TotalHarga'>" + rowData.Kembali + "</td></tr>" +
                             "</tfoot></table></div></div></div>";
