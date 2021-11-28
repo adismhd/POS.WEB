@@ -1,44 +1,97 @@
 ﻿<br />
 <div class="container-fluid">
-    <div class="col-12">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <h4>Transaksi Sedang Berlangsung</h4>
             </div>
             <div class="card-body">
                 <div class="row" id="dataItem">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="input-group">
-                                <label id="namaCostumer"></label>
-                                <label id="nomorMeja"></label>
-                                <label id="tanggal"></label>
-                                <label id="Pegawai"></label>
-                                <label id="Status"></label>
-                                <input type="button" class="btn btn-warning" value="Batalkan Pesanan" onclick="BayarNanti()" />
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group" id="hargaItem">
-                                <table class='table' id="tPesanan">
-                                    <tbody id="tbody-tPesanan"></tbody>
-                                    <tfoot style="background-color:lightgray; border:none">
-                                        <tr><td>SubTotal</td><td colspan="2" id="subTotal"></td></tr>
-                                        <tr><td>Tax 15%</td><td colspan="2" id="tax"></td></tr>
-                                    </tfoot>
-                                </table>
-                                <hr />
-                                <center><h3 id="total">Total : Rp. 0 </h3></center>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <center>
-                                <input type="button" class="btn btn-danger" value="Bayar Sekarang" onclick="BayarSekarang()" />&nbsp;
-                            </center>
-                        </div>
-                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Transaksi Selesai</h4>
+            </div>
+            <div class="card-body">
+                <div class="row" id="dataItemSelesai">
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        LoadData();
+
+    });
+
+    function LoadData() {
+        param = {};
+
+        $.ajax({
+            type: 'GET',
+            url: '../DataDummy/DataTransaksi.json',
+            data: param,
+            success: function (Data, textStatus, jqXHR) {
+                //$("#tbody-tableMenu").empty();
+                var cHtml = '';
+                var sHtml = '';
+
+                $.each(Data.Pesanan, function (i, rowData) {
+                    if (rowData.Status == '0') {
+                        cHtml += "<div class='col-md-3'><div class='card'><div class='card-body'>" +
+                            "<label id='tanggal'>Tanggal : " + rowData.Tanggal + "</label><br/>" +
+                            "<label id='namaCostumer'>Nama Costumer : " + rowData.NamaCostumer + "</label><br/>" +
+                            "<label id='nomorMeja'>Nomor Meja : " + rowData.NomorMeja + "</label><br/>" +
+                            "<label id='Pegawai'>Pegawai : " + rowData.Pegawai + "</label><br/>" +
+                            "<table class='table table-sm' id='tPesanan'><thead><tr><td>Pesanan</td><td>Harga</td><td>Qyt</td><td>Total</td></tr></thead>";
+
+                        $.each(rowData.Item, function (i, rowData2) {
+                            cHtml += "<tbody id='tbody-tPesanan'>" +
+                                "<tr><td style='display: none;'>" + rowData2.idPesanan + "</td><td>" + rowData2.nama + "</td><td>" + rowData2.harga + "</td><td>1</td><td>" + rowData2.harga + "</td></tr>"+
+                                "</tbody>";
+                        });
+                        cHtml += "<tfoot style='background-color:lightgray; border:none'>" +
+                            "<tr><td colspan='3'>SubTotal</td><td id='subTotal'>" + rowData.SubTotal+"</td></tr>" +
+                            "<tr><td colspan='3'>Tax 15%</td><td id='tax'>" + rowData.Tax + "</td></tr>" +
+                            "<tr><td colspan='3'>Total Harga</td><td id='TotalHarga'>" + rowData.TotalHarga + "</td></tr>" +
+                            "</tfoot></table></div><div class='card-footer'><center>" +
+                            "<input type='button' class='btn btn-danger' value='Bayar Sekarang' onclick='BayarSekarang()' />&nbsp;" +
+                            "</center></div></div></div>";
+                    } else {
+                        sHtml += "<div class='col-md-3'><div class='card'><div class='card-body'>" +
+                            "<label id='tanggal'>Tanggal : " + rowData.Tanggal + "</label><br/>" +
+                            "<label id='namaCostumer'>Nama Costumer : " + rowData.NamaCostumer + "</label><br/>" +
+                            "<label id='nomorMeja'>Nomor Meja : " + rowData.NomorMeja + "</label><br/>" +
+                            "<label id='Pegawai'>Pegawai : " + rowData.Pegawai + "</label><br/>" +
+                            "<table class='table table-sm' id='tPesanan'><thead><tr><td>Pesanan</td><td>Harga</td><td>Qyt</td><td>Total</td></tr></thead>";
+                        $.each(rowData.Item, function (i, rowData2) {
+                            sHtml += "<tbody id='tbody-tPesanan'>" +
+                                "<tr><td style='display: none;'>" + rowData2.idPesanan + "</td><td>" + rowData2.nama + "</td><td>" + rowData2.harga + "</td><td>1</td><td>" + rowData2.harga + "</td></tr>" +
+                                "</tbody>";
+                        });
+                        sHtml += "<tfoot style='background-color:lightgray; border:none'>" +
+                            "<tr><td colspan='3'>SubTotal</td><td id='subTotal'>" + rowData.SubTotal + "</td></tr>" +
+                            "<tr><td colspan='3'>Tax 15%</td><td id='tax'>" + rowData.Tax + "</td></tr>" +
+                            "<tr><td colspan='3'>Total Harga</td><td id='TotalHarga'>" + rowData.TotalHarga + "</td></tr>" +
+                            "<tr><td colspan='3'>Pembayaran</td><td id='TotalHarga'>" + rowData.Pembayaran + "</td></tr>" +
+                            "<tr><td colspan='3'>Kembalian</td><td id='TotalHarga'>" + rowData.Kembali + "</td></tr>" +
+                            "</tfoot></table></div></div></div>";
+                    }
+                });
+                document.getElementById('dataItem').innerHTML += cHtml;
+                document.getElementById('dataItemSelesai').innerHTML += sHtml;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Get Data Error.")
+            }
+        });
+    }
+</script>
