@@ -9,7 +9,7 @@
     <br />
     <div class="card card-secondary">
         <div class="card-body">
-            <h1>Daftar Menu Makanan</h1>
+            <h1>Daftar Produk</h1>
         </div>
     </div>
     <div class="card">
@@ -22,7 +22,7 @@
                         <th scope="col">Tipe</th>
                         <th scope="col">Harga</th>
                         <th scope="col">
-                            <a href='javascript:void(0)' class='btn btn-primary' id='bTambahData' onclick="TambahMenu()">Tambah Menu</a>
+                            <a href='javascript:void(0)' class='btn btn-primary' id='bTambahData' onclick="TambahMenu()">Tambah Produk</a>
                         </th>
                     </tr>
                 </thead>
@@ -52,7 +52,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '../DataDummy/DataMenu.json',
+            url: '../DataDummy/MenuData.json',
             data: param,
             success: function (Data, textStatus, jqXHR) {
                 //$("#tbody-tableMenu").empty();
@@ -62,13 +62,12 @@
                     no += 1;
                     trHTML += "<tr style='text-align: center;'>" +
                         "<td style='display:none'>" + rowData.id + "</td>" +
-                        "<td style='width: 120px; vertical-align: middle; '> <img class='img-responsive' src='" + rowData.gambar + "' style='width:120px;'> </td>" +
+                        "<td style='width: 250px; vertical-align: middle; '> <img class='img-fluid' src='" + rowData.gambar + "' > </td>" +
                         "<td style='vertical-align: middle; '>" + rowData.nama + "</td>" +
                         "<td style='vertical-align: middle; '>" + rowData.tipe + "</td>" +
                         "<td style='vertical-align: middle; '>" + rowData.harga +"</td>" +
                         "<td style='vertical-align: middle; '> <div class='btn-group'>" +
-                        "<a href='javascript:void(0)' class='btn btn-warning' id='bEditData'>Edit</a>" +
-                        "<a href='javascript:void(0)' class='btn btn-danger' id='bHapusData'>Hapus</a>" +
+                        "<a href='javascript:void(0)' class='btn btn-warning' id='bEditData'>Detail</a>" +
                         "</div></td>" +
                         "</tr>";
                 });

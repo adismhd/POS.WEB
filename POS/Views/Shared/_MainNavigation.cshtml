@@ -1,34 +1,150 @@
-﻿<aside class="main-sidebar sidebar-light-blue elevation-4" style="background-color: #fdf5ff; ">
+﻿@using POS.Models;
+@using Newtonsoft.Json;
+
+<aside class="main-sidebar sidebar-light-blue elevation-4" style="background-color: #fdf5ff; ">
     <a href="~/Home/Index" class="brand-link" style="background: #89369e; ">
         <h2 class="brand-text" style="text-align: center; color: white">POS Happiness</h2>
     </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block"  style=" font-weight: bold;">Hi, User</a>
+                <a href="#" class="d-block" style=" font-weight: bold;">Hi, User</a>
             </div>
         </div>
         <nav class="mt-3">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="../Kasir/Kasir" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>Kasir</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="../Transaksi/Transaksi" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>Transaksi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="../Menu/Menu" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>Menu</p>
-                    </a>
-                </li>
+                @{
+                    string dataMenu = @"
+                        {
+                            'responseCode': 0,
+                            'responseMsg': 'Successfully',
+                            'data': [
+                                {
+                                    'menuId': '01',
+                                    'menuName': 'Kasir',
+                                    'menuModuleId': '40',
+                                    'menuParentId': null,
+                                    'menuType': 10,
+                                    'menuOrder': 20,
+                                    'menuIcon': 'nav-icon fas fa-cash-register',
+                                    'menuPath': '../Kasir/Kasir',
+                                    'menuChilds': null,
+                                    'meta': null
+                                },
+                                {
+                                    'menuId': '02',
+                                    'menuName': 'Transaksi',
+                                    'menuModuleId': '40',
+                                    'menuParentId': null,
+                                    'menuType': 10,
+                                    'menuOrder': 20,
+                                    'menuIcon': 'nav-icon fas fa-hand-holding-usd',
+                                    'menuPath': '../Transaksi/Transaksi',
+                                    'menuChilds': null,
+                                    'meta': null
+                                },
+                                {
+                                    'menuId': '03',
+                                    'menuName': 'Manajemen Produk',
+                                    'menuModuleId': '40',
+                                    'menuParentId': null,
+                                    'menuType': 10,
+                                    'menuOrder': 20,
+                                    'menuIcon': 'nav-icon fas fa-archive',
+                                    'menuPath': '../ManajemenProduk/ManajemenProduk',
+                                    'menuChilds': null,
+                                    'meta': null
+                                },
+                                {
+                                    'menuId': '04',
+                                    'menuName': 'Keuangan',
+                                    'menuModuleId': '40',
+                                    'menuParentId': null,
+                                    'menuType': 10,
+                                    'menuOrder': 20,
+                                    'menuIcon': 'nav-icon fas fa-money-bill-wave',
+                                    'menuPath': '../Menu/Menu',
+                                    'menuChilds': null,
+                                    'meta': null
+                                },
+                                {
+                                    'menuId': '05',
+                                    'menuName': 'Pengaturan',
+                                    'menuModuleId': '40',
+                                    'menuParentId': null,
+                                    'menuType': 10,
+                                    'menuOrder': 20,
+                                    'menuIcon': 'nav-icon fas fa-wrench',
+                                    'menuPath': '../Menu/Menu',
+                                    'menuChilds': null,
+                                    'meta': null
+                                },
+                                {
+                                    'menuId': '06',
+                                    'menuName': 'Suport dan Bantuan',
+                                    'menuModuleId': '40',
+                                    'menuParentId': null,
+                                    'menuType': 10,
+                                    'menuOrder': 20,
+                                    'menuIcon': 'nav-icon fas fa-headset',
+                                    'menuPath': '../Menu/Menu',
+                                    'menuChilds': null,
+                                    'meta': null
+                                }
+                            ]
+                        }
+                        ";
+                    string url = string.Empty, applicationNo = string.Empty, stage = string.Empty, tabType = string.Empty;
 
+                    MenuNavigationModel menuNavigation = new MenuNavigationModel();
+
+                    menuNavigation = JsonConvert.DeserializeObject<MenuNavigationModel>(dataMenu);
+
+                    foreach (var item in menuNavigation.data.Where(x => x.menuType == 10))
+                    {
+                        if (item.menuChilds == null && item.menuParentId == null)
+                        {
+                            url = item.menuPath + "?TabType=" + item.menuId;
+                            <li class="nav-item">
+                                @*<a href="@url" id="@item.menuId" class="nav-link @Url.MakeActiveClass(item.menuPath.Split("/")[1].ToString(), item.menuPath.Split("/")[1].ToString())">*@
+                                <a href="@url" id="@item.menuId" class="nav-link">
+                                    <i class="@item.menuIcon"></i>
+                                    <p>@item.menuName</p>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                @if (item.menuParentId == null)
+                                {
+                                    <a href="javascript:void(0)" class="nav-link" id="@item.menuId">
+                                        <i class="nav-icon fas fa-folder-plus"></i>
+                                        <p>
+                                            @item.menuName
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview" style="margin-left: 10%;">
+                                        <li class="nav-item">
+                                            @{
+                                                foreach (var it in item.menuChilds.Where(x => x.menuType == 10))
+                                                {
+                                                    url = it.menuPath + "?TabType=" + it.menuParentId;
+                                                    @*<a href="@url" id="@it.menuId" class="nav-link @Url.MakeActiveClass(it.menuPath.Split("/")[1].ToString(), it.menuPath.Split("/")[1].ToString())">*@
+                                                    <a href="@url" id="@it.menuId" class="nav-link">
+                                                        <i class="far fa-circle nav-icon"></i>
+                                                        <p>@it.menuName</p>
+                                                    </a>
+                                                }
+                                            }
+                                        </li>
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    }
+                }
             </ul>
         </nav>
     </div>
